@@ -29,16 +29,16 @@ public class BoardService {
 	private BoardService() {
 		this.list = new ArrayList<>();
 		
-		for(int i=0; i<10; i++) {
+		for(int i=0; i<1000; i++) {
 			BoardDTO dto = new BoardDTO();
 			dto.setTitle("제목...."+i);
 			dto.setContent("내용......"+i);
-			dto.setWriter("user"+i);
+			dto.setWriter("test"+i);
 			
 //			System.out.println(dto);
 			//target = dto.getBoardno();
 			
-			list.add(dto);
+			list.add(0,dto); //최근데이터가 가장위에
 		}
 	}
 	
@@ -101,7 +101,29 @@ public class BoardService {
 		
 		System.out.println(dto);
 	}
+	//게시물의 총 개수를 구하는 메서드
+	public int getTotal() {
+		
+		//1000
+		return list.size();
+	}
 	
+	//현재페이지
+	public List<BoardDTO> getList2(int page){
+		
+		if(page==0)
+			page = 1;
+		
+		int LastIndex = (page * 25) -1;
+		int firstIndex = LastIndex - 24 ;
+		
+		return this.list.subList(firstIndex, LastIndex);
+		
+	}
 
 	
+	public static void main(String[] args) {
+		BoardService service = BoardService.getInstance();
+		System.out.println(service.getList2(0).get(0).getTitle());
+	}
 }

@@ -15,8 +15,28 @@
 		response.sendRedirect("/member/login.jsp");
 		return;
 	}
-	List<BoardDTO> list = BoardService.getInstance().getList();
-	String id = request.getParameter("id");
+	
+	
+	int pageValue =1; 
+	
+	try{
+		pageValue = Integer.parseInt(request.getParameter("page"));
+		
+	}catch(Exception e){
+		pageValue = 1;
+		
+	}
+	System.out.println("밖:" + pageValue);
+	List<BoardDTO> list = BoardService.getInstance().getList2(pageValue);
+	System.out.println("list:" +list);
+	int total = BoardService.getInstance().getTotal();
+	
+	PageMaker pm = new PageMaker(request.getParameter("page"), total);
+
+	
+	//List<BoardDTO> list = BoardService.getInstance().getList();
+
+	
 %>
 
 <%@ include file ="../header.jsp"%> 
@@ -45,10 +65,10 @@
                   </thead>
                   <tbody>
                   <%
-				for(int i = list.size()-1; i>=0; i--){
-				%>
+                 
+			for(int i=0; i<=list.size()-1; i++){%>
+				
 		<tr>
-		
 		<td><%=list.get(i).getBoardno()%></td>
 		<td><a href="/board/read.jsp?boardno=<%=list.get(i).getBoardno()%>"><%=list.get(i).getContent()%></a></td>
 		<td><%=list.get(i).getWriter()%></td>
@@ -60,7 +80,24 @@
                 </table>
               </div>
             </div>
+         	
+         	
+         	
+          <nav aria-label="Page navigation example" style ="margin-left: 15px;">
+			  <ul class="pagination">
+			  	
+			  	<%if(pm.isPrev()){%> <li class="page-item"><a class="page-link" href="/board/list.jsp?page=<%=pm.getStart()-1%>">이전</a></li><%} %>	
+			  	<%
+			  		for(int i=pm.getStart(); i<=pm.getEnd(); i++){%>
+			    <li class="page-item"><a class="page-link" href="/board/list.jsp?page=<%=i%>"><%=i %></a></li>
+			  	
+			  	<%} %>
+			   <%if(pm.isNext()){%> <li class="page-item"><a class="page-link" href="/board/list.jsp?page=<%=pm.getEnd()+1%>">다음</a></li><%} %>
+			  </ul>
+		</nav>
+
           </div>
+ 
 			  <a href="/board/register.jsp" class="btn btn-primary">등록</a>
         </div>
         <!-- /.container-fluid -->
