@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    table {
+       
+        width:  80%;
+        margin : 0 auto;
+        margin-top: 100px;
+        /* border : 1px solid #777777; */
+    }
+
+    td {
+        padding: 15px;
+        border : 1px solid #777777;
+        height: 50px;
+    }
+    td{
+        text-align: center;
+        
+    }
+
+</style>
+<body>
+<script>
+    
+   
+
+    var list = [] //배열생성
+    for(var i=1; i<=25 ;i++){
+        list.push(i);
+    }
+
+    //셔플  
+    shuffle(list)
+    console.log(list)
+    
+    //빙고판 출력
+    document.write("<h3>정대윤</h3>")
+    document.write("<table>")
+
+    for(var i=0; i<5; i++){
+        document.write("<tr>")
+        for(var j=0; j<5; j++){
+            document.write("<td>"+list.pop()+"</td>")    
+        }
+        document.write("</tr>")
+    }
+    document.write("</table>")
+
+    function shuffle(list){
+        list.sort(() => Math.random() - 0.5);
+    }
+
+    
+
+    </script>
+
+    <!-- <table>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+        </tr>
+
+        
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+        </tr>
+
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+        </tr>
+
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+        </tr>
+
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+        </tr>
+    </table> -->
+</body>
+</html>

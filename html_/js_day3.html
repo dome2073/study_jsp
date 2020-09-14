@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>hello1</h1>
+    <h1>hello</h1>
+    <h1 id="hello3">hello3</h1>
+    <h1 class = "even">hello4</h1>
+    <h1 onclick=" alert('clicked')">hello5</h1>
+    <h1>hello6</h1>
+    <h1>hello7</h1>
+    <h1>hello8</h1>
+    <h1>hello9</h1>
+    <h1>hello10</h1>
+
+
+    <script>
+
+        window.onload = function(){
+            //1. 원하는 element에 대한 참조를 얻는다.
+            let h1Tag = document.getElementById("hello3");
+
+            //2. element의 속성을 읽거나 변경 등의 작업을 수행  
+            console.log(h1Tag.innerHTML);
+            h1Tag.style.color = "blue"
+            h1Tag.style.background = "yellow"
+
+            //3. 아니면 이벤트를 등록
+            // h1Tag.onclick = h1Click; // 1. 정의된 함수를 연결
+            h1Tag.onclick = function(e) {  //2. 직접 함수를 연결
+                alert(e);
+            }
+        }
+
+    </script>
+</body>
+</html>

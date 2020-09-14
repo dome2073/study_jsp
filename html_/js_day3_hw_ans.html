@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--  -->
+    <input type="checkbox" value="전체" onclick='selectAll()'>전체
+    <input type="checkbox" value="야구">야구
+    <input type="checkbox" value="농구">농구
+    <input type="checkbox" value="축구">축구
+    <input type="checkbox" value="배구">배구
+    <br>
+
+    <textarea name="sportList" id="ta" cols="30" rows="10"></textarea>
+
+    <script>
+
+        window.onload = function(){
+            //1 . 원하는 element에 대한 참조를 얻어와야한다.
+            // 페이지에 있는 모든 <input>에 대한 참조를 얻는다.
+            let inputArr = document.getElementsByTagName("input");
+
+            //2. 이벤트 등록 - 이벤트 소스와 이벤트 핸들러의 연결
+            // 이벤트 소스 - 이벤트가 발생한 element
+            // 이벤트 핸들러 - 이벤트가 발생했을 때 수행 될 코드
+            for(let i=0; i<inputArr.length; i++)
+                inputArr[i].onclick = inputClicked;
+        }
+
+        function inputClicked(){
+            //0. 전체를 클릭한 경우
+            //0.1 모든 체크박스를 체크/체크 해제한다.
+            if(this==inputArr[0]){
+                for(let i=1; i<inputArr; i++){
+                    inputArr[i].checked = inputArr[0].checked;
+                }
+            }
+            //1. 클릭한 체크박스의 값 얻는다.
+            let value = this.value; //e.srcElement.value
+
+            //2. 체크박스 값을 textarea에 저장한다.
+            setTextArea(value);
+            
+        }
+
+        function setTextArea(value){
+            let ta = document.getElementById("ta");
+            ta.value += value+",";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--  -->
+    <input type="checkbox" value="전체" onclick='selectAll()'>전체
+    <input type="checkbox" value="야구">야구
+    <input type="checkbox" value="농구">농구
+    <input type="checkbox" value="축구">축구
+    <input type="checkbox" value="배구">배구
+    <br>
+
+    <textarea name="sportList" id="" cols="30" rows="10"></textarea>
+
+    <script>
+        // 전체를 체크하면 다른 모든 체크박스가 체크된다
+        // 전체 체크를 해제하면 다른 모든 체크 박스도 해제된다.
+
+        
+
+        // 1. 전체 checkbox리스트 가져온다.
+        // 2. 그 중 현재 체크중인 리스트를 가져온다.
+        // 3. 현재 체크중인 리스트를 textarea에 보여준다.
+        // + 전체 버튼이 체크상태이면 모든 버튼을 checked = true로 바꿔준다
+        // - 전체 버튼을 해제하면 모든 버튼을 checked = false로 바꿔준다.
+
+        //1. 전체 리스트 가져오기.
+        
+        var list = document.getElementsByTagName("input");
+        var textarea = document.getElementsByName("sportList");
+
+        
+        window.onclick = function () {
+
+            var checkedList = [];
+            //2. 현재 체크중인 리스트 가져오기
+            for (let i = 1; i < list.length; i++) {
+                
+                if (list[i].checked == true) {
+                    checkedList.push(list[i].value); //새로운배열에 담기
+                }
+            }
+            //3.현재 요소가 check된 리스트를 textarea에 출력
+            textarea[0].textContent = "" + checkedList;
+        }
+
+        //전체 버튼을 누르면 호출되는 함수
+        function selectAll() {
+            if (list[0].checked == false) {
+                for (let i = 1; i < list.length; i++) {
+                    list[i].checked = false;
+                }
+            } else {
+                for (let i = 1; i < list.length; i++) {
+                    list[i].checked = true;
+                }
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
