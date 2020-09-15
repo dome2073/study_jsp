@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+    <style>
+        img {
+
+            width: 80px;
+
+            height: 110px;
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <button onclick="showAll()">show All</button>
+
+    <button onclick="hideAll()">hide All</button>
+
+    <button onclick="shuffle()">shuffle</button><br>
+
+    <div id="board">
+
+    </div>
+
+
+
+    <script>
+
+        let board;  // <div id=board>에 대한 참조
+
+        let cardArr; // card배열
+
+        let backArr =[];    
+        let frontArr =[];
+        let imgArr = document.getElementsByTagName("img")
+        window.onload = function () {
+
+            // 1. 요소에 대한 참조를 얻는다.
+            
+
+
+            // 2. 이벤트소스에 이벤트를 등록한다.
+
+
+            // 카드판(board)을 초기화
+
+            initBoard();
+
+
+
+            // 모든 card image에 이벤트 처리기를 등록(연결)
+
+            addEventHandlerToCards();
+
+        }
+
+
+        // 카드가 클릭되면 호출되는 이벤트 처리기(이벤트 핸들러)
+
+        function cardClick() {
+            
+            //0.값을 서로 비교하기위해서 새로운 배열에 첫번째 클릭한 값과 두번째 클릭한 값을 담는다 -frontArr
+            //0.1 틀렸을경우 다시 뒤집어주기 위해 클릭한 카드의 위치도 배열에 담는다. (두개를 뒤집어줘야하니 배열을 써야한다) - backArr
+            saveCardImfo(this.id)
+            
+            //1. 카드가 클릭되면 카드를 뒤집어야한다.
+            changeCard(this);
+
+            //2. 카드를 두 개 클릭하면 첫번째 카드와 두번째 카드를 비교해야한다.
+            if(frontArr.length ==2 && backArr.length ==2) checkCard();
+
+            //3. 첫번째 카드와 두번째 카드가 같으면 
+            //4. 첫번째 카드와 두번째 카드가 다르면
+
+        }
+
+        //1. 카드 뒤집기
+        function changeCard(click_img){
+            //현재 클릭한 카드를 앞면으로 뒤집는다
+            
+            let frontImg = cardArr[click_img.id];
+
+            imgArr[click_img.id].src = 'img/'+frontImg+'.png';
+        }
+
+        function checkCard(){
+            //3. 첫번째 카드와 두번째 카드가 같으면
+            if(frontArr.pop() == frontArr.pop()){
+                alert("정답")
+                backArr.pop();
+                backArr.pop();
+            }
+            //4. 첫번째 카드와 두번째 카드가 다르면
+            else{
+            
+                //뒷면으로 뒤집는다.
+                for(let i=0; i<2; i++)
+                    changeBack();
+            
+            }
+        }
+        
+    
+        
+        function changeBack(){
+            console.log(backArr)
+            let backImg = 'back.png';
+            imgArr[backArr.pop()].src = 'img/' + backImg;
+            
+        }
+
+        //클릭한 카드의 정보를 
+        function saveCardImfo(id){
+            
+            frontArr.push(cardArr[id]) //카드의 앞면 (클릭한 카드의 실제 값(카드값))
+            backArr.push(id) //카드의 뒷면 (클릭한 카드의 위치)
+
+            
+        }
+
+        function addEventHandlerToCards() {
+
+            
+            for (let i = 0; i < imgArr.length; i++){
+
+                imgArr[i].id = i;
+                imgArr[i].onclick = cardClick;
+            }
+            
+        }
+
+        // 모든 카드를 보여준다.(앞면이 보이게 한다.)
+
+        function showAll() {
+
+            
+
+            for (let i = 0; i < imgArr.length; i++)
+
+                imgArr[i].src = 'img/' + cardArr[i] + '.png'
+
+
+        }
+
+        // 모든 카드를 덮는다.(뒷면이 보이게 한다.)
+
+        function hideAll() {
+
+            
+
+            let backImg = 'back.png'
+
+            for (let i = 0; i < imgArr.length; i++)
+
+                imgArr[i].src = 'img/' + backImg
+
+        }
+
+        // 카드의 순서를 뒤섞는다.
+
+        function shuffle() {
+
+            // cardArr를 섞는다.
+
+            cardArr.sort((a, b) => Math.random() - 0.5);
+
+            // card를 보여준다.
+
+            showAll();
+
+        }
+
+
+        // board를 초기화 한다.(동적으로 카드<img> 생성해서 추가)
+
+        function initBoard() {
+
+            board = document.getElementById("board");
+
+
+
+            // card를 담을 배열을 생성
+
+            cardArr = new Array(52);
+
+
+
+            // cardArr를 초기화
+
+            let tmp = "";
+
+
+            for (let i = 0; i < cardArr.length; i++) {
+
+                if(i%2 ===0)
+                    var random = Math.floor(Math.random() * 51)+1;
+
+                cardArr[i] = random;
+
+                tmp += '<img src="img/' + cardArr[i] + '.png" alt="">'
+
+                if ((i + 1) % 13 == 0)
+
+                    tmp += "<br>"
+
+            }
+
+
+            board.innerHTML = tmp;
+
+        }
+    </script>
+</body>
+
+</html>
