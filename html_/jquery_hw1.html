@@ -30,14 +30,13 @@
     <script>
         //과제 1- 체크박스
 
-        //1. 참조를 가져온다.
-        let checkArr = $('input[type=checkbox]');
+        
         
         $(document).ready(function(){
             
 
             //2. 이벤트를 등록한다
-            addClickedEvent(checkArr);
+            addClickedEvent();
             
             
 
@@ -48,10 +47,11 @@
             console.log(this)
             //1.전체 클릭시 다른 모든 체크박스가 체크
             //2.전체 클릭 해제시 모든 체크박스 체크 해제
-            if(this == checkArr[0]){
-
-                for(let i=1; i<checkArr.length; i++){
-                checkArr[i].checked = checkArr[0].checked;
+            if(this == $('input[type=checkbox]').eq(0)[0]){
+                console.log("ㅋㅋ")
+                for(let i=1; i<$('input[type=checkbox]').length; i++){
+                    $('input[type=checkbox]').eq(i).prop('checked', $('input[type=checkbox]').eq(0).prop('checked'))
+                    
                 }
             }
             
@@ -65,9 +65,9 @@
             tmp = ""
             
             
-            for(let i=1; i<checkArr.length; i++){
-                if(checkArr[i].checked == true)
-                tmp += checkArr[i].value + ","
+            for(let i=1; i<$('input[type=checkbox]').length; i++){
+                if($('input[type=checkbox]').eq(i).prop('checked') ==true)
+                    tmp += $('input[type=checkbox]').eq(i).val() + ","
             }
             
             $('textarea').val(tmp)
@@ -78,9 +78,7 @@
         function addClickedEvent(){
             
             $('input[type=checkbox]').bind("click", checkClicked)
-            // for(let i=0; i<checkArr.length; i++){
-            //     checkArr[i].onclick = checkClicked;
-            // }
+
         }
 
 

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img{
+            height : 107px;
+            width : 72px;
+        }
+    </style>
+</head>
+<body>
+    <script src="jquery-3.5.1.min.js"></script>
+    <button onclick="showAll()">show All</button>
+    <button onclick="hideAll()">hide All</button>
+    <button onclick="shuffle()">shuffle</button>
+
+    <div id="board">
+
+    </div>
+
+    <script>
+        let cardArr; //카드배열
+        let firstcard = null;
+        let firstback = null
+
+        $(document).ready(function(){
+
+            initBoard(); 
+
+            addEventHandlerToCards();
+        
+        });
+
+        function cardClick(){
+            
+            //클릭한 카드 앞면값
+            let cardvalue = cardArr[($(this).val())];
+            //클릭한 카드 뒷면값
+            let backvalue = $(this).val(); 
+
+            //1. 첫번째 카드일때
+            $(this).attr('src', 'img/'+ cardvalue+'.png');
+            //2. 두번째 카드일때
+            if(!firstCard(cardvalue, backvalue)){
+                //값 비교
+                compare(cardvalue, backvalue);
+                firstcard =null;
+                firstback = null;
+            }          
+            
+        }
+
+        function isCardBack(){
+
+        }
+        function isSameCard(){
+
+        }
+
+        //첫번째 카드와 두번째 카드를 비교
+        function compare(secendcard, secendback){
+            
+            //서로 다른 카드면 카드를 다시 뒤집는다.
+            if(!(firstcard == secendcard)){
+                $('img').eq(firstback).attr('src','img/back.png');
+                $('img').eq(secendback).attr('src','img/back.png');
+            }
+            
+        }
+
+        //첫번째 카드를 클릭했을때
+        //카드 앞면값과 뒷면값을 저장해줌 비교할 수 있게
+        function firstCard(cardvalue, backvalue){
+            if(firstcard == null){
+                firstcard = cardvalue;
+                firstback= backvalue;
+                return true;
+            }
+            
+            return false;
+        }
+
+        function addEventHandlerToCards() {
+            $('img').bind("click", cardClick) //이벤트 연결
+        }
+
+        function showAll(){
+            
+            for (let i = 0; i < $('img').length; i++){
+                $('img').eq(i).attr('src','img/'+cardArr[i]+'.png');
+            }
+                
+        }
+
+        function hideAll(){
+            let backImg = 'back.png'
+
+            for(let i=0; i<$('img').length;i++){
+                $('img').eq(i).attr('src','img/'+backImg);
+                $('img').eq(i).val(i)
+            }
+
+        }
+
+        function shuffle(){
+            
+            // cardArr를 섞는다.
+
+            cardArr.sort((a, b) => Math.random() - 0.5);
+
+            // card를 보여준다.
+
+            showAll();            
+        }
+
+        function initBoard(){
+           
+
+            //카드 배열 생성
+            cardArr = new Array(52);
+
+            // cardArr를 초기화
+            let tmp = "";
+            for (let i = 0; i < cardArr.length; i++) {
+
+                if(i%2 ===0)
+                    var random = Math.floor(Math.random() * 51)+1;
+
+                cardArr[i] = random;
+
+                tmp += '<img src="img/' + cardArr[i] + '.png" alt="">'
+                
+
+                if ((i + 1) % 13 == 0)
+
+                    tmp += "<br>"
+
+            }
+            $('#board').append(tmp)
+        }
+
+    </script>
+</body>     
+</html>
