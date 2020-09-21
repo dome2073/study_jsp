@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        select{
+            width: 80px;
+            height: 100px;
+        }
+
+    </style>
+</head>
+<body>
+    <select name ="" id ="leftBox" multiple>
+        <option value="야구">야구</option>
+        <option value="축구">축구</option>
+        <option value="농구">농구</option>
+        <option value="배구">배구</option>
+        <option value="탁구">탁구</option>
+    </select>
+
+    <button id="left" onclick ='move(selectOption(rightbox),leftbox)'>&lt;</button>
+    <button id="right" onclick ='move(selectOption(leftbox),rightbox)'>&gt;</button>
+    <button id="rightAll" onclick ='move(leftbox, rightbox)'>&gt; &gt;</button>
+    <button id="leftAll" onclick ='move(rightbox, leftbox)'>&lt; &lt;  </button>
+
+    <select name="" id="rightBox" multiple = "multiple">
+
+
+    </select>
+    
+    <script>
+
+        //3일차 과제2 - select박스에서 option을 누르고 해당하는 버튼 클릭시 이동하는 예제
+
+        //왼쪽 select박스에서 option클릭 후 버튼을 누른 버튼쪽으로 이동
+
+        //1. 선택한 옵션을 가져오기
+        //2. 선택한 옵션과 버튼을 누르면 버튼에 따라 이동
+        
+        var leftbox = document.getElementById("leftBox");
+        var rightbox = document.getElementById("rightBox");
+        var leftbox_size = leftbox.length; //5
+        
+        //현재 선택한 옵션 가져오기
+        function selectOption(selectOption){
+            let selectOptions = [];
+            let j = 0;
+            for(let i=0; i<selectOption.length; i++){
+                if(selectOption.options[i].selected == true){
+           
+                    selectOptions[j] = selectOption.options[i];
+
+                    j += 1;
+                }      
+            }
+            
+            return selectOptions
+        }
+
+        //이동시키는 함수
+        function move(selectOptions, box){
+             //1. 선택한 옵션의 크기(otpion의 개수)만큼 이동시킨다.    
+            for(let i=0; i<selectOptions.length; i++){
+                
+                //선택한 옵션을 이동시킬 select박스에 추가
+                box.innerHTML += selectOptions[i].outerHTML;
+                if(selectOptions.length != leftbox_size) //전체 선택이 아닌경우 이동후 select에서 삭제
+                    selectOptions[i].outerHTML = "";
+                
+            }
+            
+            //전체선택을 한 경우 
+            if(selectOptions.length == leftbox_size) 
+                selectOptions.innerHTML = "";
+        }
+
+    </script>
+</body>
+</html>

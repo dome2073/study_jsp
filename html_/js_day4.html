@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img{
+            height : 107px;
+            width : 72px;
+        }
+
+    </style>
+</head>
+<body>
+    <button onclick="showAll(cardList)">show All</button>
+    <button onclick="hideAll()">hide All</button>
+    <button onclick="shuffle(cardList)">shuffle</button>
+    <br/>
+
+    <!-- 52장의 카드를 보여준다. -->
+    <div>
+
+    </div>
+    
+    <script>
+
+        //4일차 과제 - 같은그림찾기
+
+        //1. 요소에 대한 참조를 얻는다
+        let card = document.getElementsByTagName("img") 
+        let imgdiv = document.getElementsByTagName("div")[0]
+        let cardList = [];
+        Array.from(cardList);
+        let cardcheck =[];
+        let clickcard =[];
+
+        window.onload = function(){
+            
+            init();
+
+            
+        }
+        
+        //페이지가 로딩될때 
+        //1. 전체 카드를 뒤집기 - 이미지를 CARD_BACK (hiadAll)
+        //2. 같은카드를 쌍으로 배열에 넣고 섞기 (cardload)
+        function init(){
+            
+            hideAll();
+            cardload();
+            
+        }
+
+        function cardload(){
+            //같은 그림 찾기를 할려면 같은 카드 2쌍씩 어떻게??
+            //1. 배열에 같은 숫자를 2개씩넣는다.
+            //2. 섞는다.
+            // + 현재 중복제거X
+            for(let i=0; i<card.length/2; i++){
+                let random = Math.floor(Math.random() * 51)+1;
+                cardList.push(random)
+                cardList.push(random)
+            }
+            shuffle(cardList)
+
+        }
+
+
+         //모든 카드를 보여준다. (앞면을 보여준다)
+         function showAll(cardList){
+             //1. 52장의 카드를 앞면을 보여준다.
+             //2. 현재 카드의 정보는 cardList (데이터)
+            imgdiv.innerHTML = "";
+             for(let i=1; i<=cardList.length; i++){
+                
+                //3. 현재 카드의 정보(데이터 - cardList)를 출력한다.
+                imgdiv.innerHTML += "<img src='img/"+cardList[i-1]+".png'>";
+                
+                if(i%13 ===0)  imgdiv.innerHTML += "<br>"
+
+            }
+        }
+        
+        //모든 카드를 덮는다. (뒷면을 보이게 한다)
+        function hideAll(){
+            imgdiv.innerHTML = "";
+             //1. 52장의 카드를 뒷면을 보여준다. 어떻게?
+             for(let i=1; i<=52; i++){
+                //2. 카드의 정보가 있는 cardList(데이터)는 건드리지 않고 이미지만 전부 바꾼다.
+                imgdiv.innerHTML += "<img src='img/CARD_BACK.png' onclick='cardClick(this.id)' id= '"+(i-1)+"'>";
+                if(i%13 ===0)  imgdiv.innerHTML += "<br>"
+            }
+        }
+
+        //카드의 순서를 뒤섞는다.
+        function shuffle(cardList){
+
+            //1. 카드배열을 가져온다.
+            //2. 카드배열을 섞는다
+            //3. 섞은 카드 배열을 보여준다 (showAll) 
+             cardList.sort(() => Math.random() - 0.5);
+             
+             //중복제거 X
+             console.log(cardList)
+
+             return cardList;
+        }
+
+        //카드 한장을 클릭하면 발생하는 함수
+        function cardClick(clicked_id){
+            //1. 먼저 뒤집어진 카드가 앞면으로 돌아와야한다.
+
+            card[clicked_id].outerHTML ="<img src='img/"+cardList[clicked_id]+".png'>";
+            
+            //2. 현재 클릭한 이미지의 정보를 담아야한다.
+            //2-1. 현재 클릭한 카드 뒷면의 정보(카드 데이터) - cardcheck
+            //2-2. 현재 클릭한 카드의 위치 - clickcard
+            cardcheck.push(cardList[clicked_id]); 
+            clickcard.push(clicked_id);          
+
+            
+            setTimeout(() => {
+
+                //1.5초뒤 실행?    
+                cardCheck(card)
+            
+            }, 1000);
+        }
+
+        //결과를 확인하는 함수
+        function cardCheck(){
+            //1. 카드를 두개 클릭했을때 클릭한 두개의 값이 일치하면 서로 같은카드
+            // --> 뒤집은 카드를 그대로 유지시킨다.
+            //2 .카드를 두개 클릭했을때 클릭한 두개의 값이 불일치하면 다른카드
+            // --> 뒤집은 카드를 다시 뒤집어서 hide상태로 만든다.
+
+            if(cardcheck.length ==2){
+                
+                if(cardcheck.pop() === cardcheck.pop()){
+                    
+                    alert("맞췄습니다.")
+                    //배열의 요소를 제거... 
+                    clickcard.pop();  
+                    clickcard.pop();
+                }
+                else{
+                    //틀린 경우 방금 클릭해서 앞면으로 만든 카드를 다시 뒷면으로 뒤집어야한다.
+                     for(let i=0; i<clickcard.length;i++){
+                         //방금 클릭한 카드 두개를 다시 뒷면으로 뒤집어야한다.                         
+                          card[clickcard[i]].outerHTML = "<img src='img/CARD_BACK.png' onclick='cardClick(this.id)' id= '"+clickcard[i]+"'>";
+                            
+                     }
+                     clickcard.pop();  
+                     clickcard.pop();  
+                    
+                }
+                
+            }
+            
+        }
+
+    </script>
+</body>
+</html>

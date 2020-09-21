@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+</head>
+
+<body>
+    <script src="jquery-3.5.1.min.js"></script>
+    <input type="checkbox">전체
+
+    <input type="checkbox" value="야구">야구
+
+    <input type="checkbox" value="농구">농구
+
+    <input type="checkbox" value="축구">축구
+
+    <input type="checkbox" value="배구">배구 <br>
+
+    <textarea name="sportsList" id="" cols="30" rows="10"></textarea>
+
+
+    <script>
+        //과제 1- 체크박스
+
+        
+        
+        $(document).ready(function(){
+            
+
+            //2. 이벤트를 등록한다
+            addClickedEvent();
+            
+            
+
+        });
+
+        //check박스를 클릭하면 실행되는 onclick함수
+        function checkClicked(){
+            console.log(this)
+            //1.전체 클릭시 다른 모든 체크박스가 체크
+            //2.전체 클릭 해제시 모든 체크박스 체크 해제
+            if(this == $('input[type=checkbox]').eq(0)[0]){
+                console.log("ㅋㅋ")
+                for(let i=1; i<$('input[type=checkbox]').length; i++){
+                    $('input[type=checkbox]').eq(i).prop('checked', $('input[type=checkbox]').eq(0).prop('checked'))
+                    
+                }
+            }
+            
+            //3. 체크박스를 체크하면 해당 체크박스의 종목이 textarea에 추가된다.
+            setTextArea();
+
+        }
+        // //3. 체크박스를 체크하면 해당 체크박스의 종목이 textarea에 추가된다
+        function setTextArea(){
+            
+            tmp = ""
+            
+            
+            for(let i=1; i<$('input[type=checkbox]').length; i++){
+                if($('input[type=checkbox]').eq(i).prop('checked') ==true)
+                    tmp += $('input[type=checkbox]').eq(i).val() + ","
+            }
+            
+            $('textarea').val(tmp)
+        }
+
+
+        // 클릭이벤트를 등록
+        function addClickedEvent(){
+            
+            $('input[type=checkbox]').bind("click", checkClicked)
+
+        }
+
+
+    </script>
+</body>
+
+</html>
