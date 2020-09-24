@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%	
-	//쿠키가 있는지 확인
+<%!
+	//쿠키가 있으면 쿠키id를 반환해주는 메서드
+	String getCookieId(HttpServletRequest request){
+	
 	Cookie[] cookies = request.getCookies();
 	String CookieID = "";
 	if(cookies != null && cookies.length >0){
@@ -11,6 +13,13 @@
 			}
 		}
 	}
+		return CookieID;
+	}
+%>
+<%	
+	//쿠키가 있는지 확인
+	String CookieID = getCookieId(request);
+	
 %>
 <!DOCTYPE html>
 <html>

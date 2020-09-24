@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%
 //쿠키가 있는지 확인
 	Cookie[] cookies = request.getCookies();

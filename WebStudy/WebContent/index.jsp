@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String sessionId = (String)session.getAttribute("id");
+	System.out.println(sessionId);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,11 +26,13 @@
 				href="javascript:void(0);" onclick="myFunction()"
 				title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a> <a
 				href="/" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
-			<a href="/loginForm.jsp"
-				class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">로그인</a> <a href="/dice.jsp"
-				class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">주사위</a> <a href="/fortune.jsp"
-				class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">오늘의 운세</a> <a href="#"
-				class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">개인정보수정</a>
+			<a href="/loginForm.jsp" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">로그인</a>
+			<%if(sessionId != null){ %>
+			<a href="/logout.jsp" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">로그아웃</a>
+			<%} %>
+				<a href="/dice.jsp" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">주사위</a> 
+				<a href="/fortune.jsp"class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">오늘의 운세</a> 
+				<a href="#"class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">개인정보수정</a>
 		</div>
 	</div>
 </body>
