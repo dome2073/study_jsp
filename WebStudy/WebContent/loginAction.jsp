@@ -35,9 +35,11 @@
 
 <%	
 	boolean logincheck = loginCheck(request, session);
+	//이전 페이지의 정보
+	String backUrl= request.getParameter("url");
 	
 	if(logincheck == true){
-		response.sendRedirect("/");
+		response.sendRedirect(backUrl+".jsp");
 	}else{
 		response.sendRedirect("/loginForm.jsp");
 	}

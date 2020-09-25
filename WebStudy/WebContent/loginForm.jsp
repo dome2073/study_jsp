@@ -19,6 +19,9 @@
 <%	
 	//쿠키가 있는지 확인
 	String CookieID = getCookieId(request);
+
+	//이전 페이지의 정보
+	String backUrl= request.getParameter("url");
 	
 %>
 <!DOCTYPE html>
@@ -119,7 +122,10 @@ span.psw {
     <span class="psw">Forgot <a href="#">password?</a></span>
      <a href="/cookieMove.jsp">쿠키삭제하기</a>
   </div>
+  
+  <input type ="hidden" name="url" value ="<%=backUrl%>">
 </form>
+
 
 </body>
 </html>

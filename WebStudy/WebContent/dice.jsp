@@ -6,7 +6,7 @@
 	//2. 세션이 없을 경우 접근 불가 
 	if(sessionId == null) {
 	  //2.1 --세션이 없을 경우 로그인페이지로 리다이렉트
-		response.sendRedirect("/loginForm.jsp");
+		response.sendRedirect("/loginForm.jsp?url=dice");
 	}
 %>
 <!DOCTYPE html>
