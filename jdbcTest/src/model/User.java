@@ -10,6 +10,9 @@ public class User {
 	private String in_date;//가입일
 	private String up_date; //변경일
 	
+	public User() {
+		
+	}
 	public User(String user_id, String user_pw, String user_name, String user_email) {
 		super();
 		this.user_id = user_id;
@@ -18,6 +21,18 @@ public class User {
 		this.user_email = user_email;
 
 	}
+	
+
+	public User(String user_id, String user_pw, String user_name, String user_email, String in_date, String up_date) {
+		super();
+		this.user_id = user_id;
+		this.user_pw = user_pw;
+		this.user_name = user_name;
+		this.user_email = user_email;
+		this.in_date = in_date;
+		this.up_date = up_date;
+	}
+
 
 	@Override
 	public String toString() {
