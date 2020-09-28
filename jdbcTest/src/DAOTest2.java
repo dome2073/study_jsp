@@ -10,7 +10,7 @@ public class DAOTest2 {
 	public static void main(String[] args) {
 		
 		//생성자로 객체 생성
-		User u = new User("ff22f2", "정대윤", "1234", "aaa@aaa.com");
+		User u = new User("test004", "정대윤", "1234", "aaa@aaa.com");
 		System.out.println(u);
 		
 		
