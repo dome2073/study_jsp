@@ -33,12 +33,6 @@ public class Dao {
 	Dao(Connection conn, String tableName){
 		this.tableName = tableName;
 		
-		//추가
-		try(conn){
-			conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD); // 데이터베이스의 연결을 설정한다.
-			pstmt = conn.prepareStatement(query); // Statement를 가져온다.
-			rs = pstmt.executeQuery(); // SQL문을 실행한다.
-		}
 		
 	}
 	void close(AutoCloseable... asc) {

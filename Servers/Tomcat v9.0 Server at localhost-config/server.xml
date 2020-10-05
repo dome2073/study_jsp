@@ -155,7 +155,7 @@
 
       
 
-      <Context docBase="0921web" path="/" reloadable="true" source="org.eclipse.jst.jee.server:0921web"/></Host>
+      <Context docBase="WebStudy" path="/" reloadable="true" source="org.eclipse.jst.jee.server:WebStudy"/></Host>
     </Engine>
   </Service>
 </Server>

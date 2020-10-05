@@ -20,7 +20,7 @@
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 
-	String query = "select * from user_info where user_id = ?"; //실행할 쿼리
+	String query = "select * from user_info where user_id = ? and user_pw = ?"; //실행할 쿼리
 
 	try {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -29,6 +29,7 @@
 		pstmt = conn.prepareStatement(query); // Statement를 가져온다.
 		
 		pstmt.setString(1,userId);
+		pstmt.setString(2,pw);
 		
 		rs = pstmt.executeQuery(); // SQL문을 실행한다.
 		

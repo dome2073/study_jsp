@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-아이디 : ${user.user_id}
-비밀번호 : ${user.user_pw}
-이름 : ${user.user_name }
-이메일 : ${user.user_email }
-가입일 : ${user.in_date }
+아이디 : ${userInfo.user_id}
+비밀번호 : ${userInfo.user_pw}
+이름 : ${userInfo.user_name }
+이메일 : ${userInfo.user_email }
+가입일 : ${userInfo.in_date }
 </body>
 </html>

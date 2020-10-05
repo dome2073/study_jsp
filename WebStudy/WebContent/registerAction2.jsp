@@ -1,0 +1,77 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import= "Model.User" %>
+<%@ page import= "java.sql.Connection" %>
+<%@ page import= "java.sql.DriverManager" %>
+<%@ page import= "java.sql.PreparedStatement" %>
+<%@ page import= "java.sql.ResultSet" %>
+<%@ page import= "java.sql.SQLException" %>
+ <jsp:useBean id="user" class="Model.User" scope="page"/>
+ <jsp:setProperty property="*" name="user"/>
+
+
+<%!
+static int insertUser(User u) {
+	String DB_URL = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
+	String DB_USER = "student";
+	String DB_PASSWORD = "1234";
+	int SQLSTATUS = 0;
+	
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+
+	String query = "insert into user_info (USER_ID, PASSWORD, NAME, EMAIL) values(?,?,?,?)"; //실행할 쿼리
+
+	try {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+
+		conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD); // 데이터베이스의 연결을 설정한다.
+		pstmt = conn.prepareStatement(query); // Statement를 가져온다.
+		
+		pstmt.setString(1, u.getUser_id());
+		pstmt.setString(2, u.getUser_pw());
+		pstmt.setString(3, u.getUser_name());
+		pstmt.setString(4, u.getUser_email());
+		
+		pstmt.executeUpdate(); // SQL문을 실행한다.
+
+		SQLSTATUS = 1;
+		return SQLSTATUS;
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+		SQLSTATUS = -1;
+		return SQLSTATUS;
+	} finally {
+		try {
+
+			pstmt.close();
+			conn.close();
+		} catch (SQLException e) {
+		}
+
+	}
+}
+%>
+<%
+	//1 . BeanSet 확인
+	//2. DB쿼리실행
+	if(user != null){
+		insertUser(user);
+	}
+	//3. action
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<jsp:forward page="userInfo.jsp">
+	<jsp:param value="user" name="userInfo"/>
+</jsp:forward>
+</body>
+</html>
