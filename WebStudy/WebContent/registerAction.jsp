@@ -11,8 +11,9 @@
  <jsp:setProperty property="*" name="user"/>
 <%
 	UserDao udao = UserDao.getInstance();
-	//1 . BeanSet 확인
+
 	//2. DB쿼리실행
+	//2-1. 애초에 js에서 null 유효성검사를해서 굳이 안써도 되긴함..
 	if(user != null){
 		udao.insertUser(user);
 	}

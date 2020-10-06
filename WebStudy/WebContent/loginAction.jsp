@@ -1,93 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="Model.User"%>
+<%@ page import= "Dao.UserDao" %>
 <%@ page import="java.sql.Connection"%>
 <%@ page import="java.sql.DriverManager"%>
 <%@ page import="java.sql.PreparedStatement"%>
 <%@ page import="java.sql.ResultSet"%>
 <%@ page import="java.sql.SQLException"%>
- <jsp:useBean id="user" class="Model.User" scope="page"/>
-
-<%!
-	private static User selectUser(String userId,String pw) {
-	User user = new User();
-	// TODO Auto-generated method stub
-	String DB_URL = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
-	String DB_USER = "student";
-	String DB_PASSWORD = "1234";
-	
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-
-	String query = "select * from user_info where user_id = ? and user_pw = ?"; //실행할 쿼리
-
-	try {
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-
-		conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD); // 데이터베이스의 연결을 설정한다.
-		pstmt = conn.prepareStatement(query); // Statement를 가져온다.
-		
-		pstmt.setString(1,userId);
-		pstmt.setString(2,pw);
-		
-		rs = pstmt.executeQuery(); // SQL문을 실행한다.
-		
-		
-		while(rs.next()){
-//			System.out.println("1");
-//			System.out.println(rs.getString("user_id") + " "); 
-//			System.out.println(rs.getString("password") + " ");
-//			System.out.println(rs.getString("name") + " "); 
-//			System.out.println(rs.getString("email") + " "); 
-//			System.out.println(rs.getString("in_date") + " ");
-//			System.out.println(rs.getString("up_date") + " ");
-			
-			user.setUser_id(rs.getString("user_id"));
-			user.setUser_pw(rs.getString("password"));
-			user.setUser_name(rs.getString("name"));
-			user.setUser_email(rs.getString("email"));
-			user.setIn_date(rs.getString("in_date"));
-			user.setUp_date(rs.getString("up_date"));
-			
-		}
-		
-		
-		
-	} catch (Exception e) {
-		e.printStackTrace();
-		
-		
-	} finally {
-		try {
-			rs.close();
-			pstmt.close();
-			conn.close();
-		} catch (SQLException e) {
-		}
-
-	}
-	
-	//예외처리 X
-	
-	return user;
-}
-%>
-
+<%--  <jsp:useBean id="user" class="Model.User" scope="page"/> --%>
 
 <%!boolean loginCheck(HttpServletRequest request, HttpSession session) {
+	//1. 로그인 = 아이디와 비밀번호를 받는다 
 	String id = request.getParameter("id");
 	String pw = request.getParameter("pwd");
 	boolean result = false;
 	
-	//로그인 성공시(아이디랑 비밀번호가 일치할 경우) 세션 생성
-	if (id.equals("asdf") && pw.equals("1234")) {
-		//remember 을 체크 했을경우 쿠키 생성
+	//2. 입력한 아이디의 정보를 조회한다.
+	UserDao udao = UserDao.getInstance();
+	
+	//3. 입력한 아이디의 정보에서 비밀번호가 일치하는지 확인한다.
+	int selectResult = udao.selectUserOne(id, pw);
+	
+	if(selectResult == 1){
 		session.setAttribute("id", id);
-
 		result = true;
 	}
-
 	return result;
 }
 
@@ -112,11 +49,15 @@ void addCookie(HttpServletRequest request, HttpServletResponse response) {
 	//이전 페이지의 정보
 	String backUrl = request.getParameter("url");
 
-if (logincheck == true) {
-	response.sendRedirect(backUrl + ".jsp");
-} else {
-	response.sendRedirect("/loginForm.jsp");
-}
+	
+	if(backUrl.equals("null"))
+		backUrl = "/index";
+	
+	if (logincheck == true) {
+		response.sendRedirect(backUrl + ".jsp");
+	} else {
+		response.sendRedirect("/loginForm.jsp");
+	}
 
 //logincheck ? response.sendRedirect("/") : response.sendRedirect("/loginForm.jsp");
 %>

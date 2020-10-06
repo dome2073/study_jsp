@@ -105,7 +105,7 @@ a {
 	function subCheck(){
 		for(let i=0; i<$('input').length;i++){
 			if($('input').eq(i).val() ==""){
-				alert("ㅎㅎ");
+				alert("입력창을 비워둘 수 없습니다.");
 			}
 		}
 	}

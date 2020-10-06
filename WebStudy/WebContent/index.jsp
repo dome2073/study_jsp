@@ -26,7 +26,9 @@
 				href="javascript:void(0);" onclick="myFunction()"
 				title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a> <a
 				href="/" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+			<%if(sessionId == null){ %>
 			<a href="/loginForm.jsp" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">로그인</a>
+			<%} %>
 			<%if(sessionId != null){ %>
 			<a href="/logout.jsp" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">로그아웃</a>
 			<%} %>
