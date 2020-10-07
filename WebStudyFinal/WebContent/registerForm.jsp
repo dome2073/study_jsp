@@ -78,17 +78,17 @@ a {
     <hr>
 
     <label for="id"><b>id</b></label>
-    <input type="text" placeholder="Enter id" name="user_id" id="id" required>
+    <input type="text" placeholder="Enter id" name="user_id" id="id">
 
      <label for="name"><b>name</b></label>
-    <input type="text" placeholder="Enter name" name="user_name" id="name" required>
+    <input type="text" placeholder="Enter name" name="user_name" id="name" >
 
     <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="user_pw" id="psw" required>
+    <input type="password" placeholder="Enter Password" name="user_pw" id="psw" >
     
     
      <label for="email"><b>email</b></label>
-    <input type="text" placeholder="Enter email" name="user_email" id="email" required>
+    <input type="text" placeholder="Enter email" name="user_email" id="email" >
 	
     
     <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
@@ -105,11 +105,10 @@ a {
 	function subCheck(){
 		for(let i=0; i<$('input').length;i++){
 			if($('input').eq(i).val() ==""){
-				console.log("ㅇㅇ");
+				alert("입력하지 않은 필드가 있습니다.")
 				return false;
 			}
 		}
-		
 		$('#frm').submit();
 	}
 

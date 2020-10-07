@@ -1,7 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%!
+	//쿠키가 있으면 쿠키id를 반환해주는 메서드
+	String getCookieId(HttpServletRequest request){
+	
+	Cookie[] cookies = request.getCookies();
+	String CookieID = "";
+	if(cookies != null && cookies.length >0){
+		for(int i=0; i<cookies.length; i++){
+			if(cookies[i].getName().equals("id")){
+				CookieID = cookies[i].getValue();
+			}
+		}
+	}
+		return CookieID;
+	}
+%>
+<%	
+	//쿠키가 있는지 확인
+	String CookieID = getCookieId(request);
 
+	//이전 페이지의 정보
+	String backUrl= request.getParameter("url");
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
@@ -71,13 +98,16 @@ span.psw {
 
 <h2>Login Form</h2>
 
-<form action="/LoginAction" method="post">
+<form action="/loginAction.jsp">
 
 
   <div class="container">
     <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="id" required>
-
+   	<%if(CookieID != null){%>
+   		<input type="text" placeholder="Enter Username" name="id" value="<%=CookieID %>" required>
+   	<%}else{%> 
+    <input type="text" placeholder="Enter Username" name="id"  required>
+	<%} %>
     <label for="psw"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="pwd" required>
         
@@ -89,9 +119,14 @@ span.psw {
 
   <div class="container" style="background-color:#f1f1f1">
     <button type="button" class="cancelbtn">Cancel</button>
+    <a href="/registerForm.jsp"><button type="button" class="cancelbtn">회원가입</button></a>
     <span class="psw">Forgot <a href="#">password?</a></span>
+     <a href="/cookieMove.jsp">쿠키삭제하기</a>
   </div>
+  
+  <input type ="hidden" name="url" value ="<%=backUrl%>">
 </form>
+
 
 </body>
 </html>
