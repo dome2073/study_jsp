@@ -32,20 +32,16 @@ public class LogFilter implements Filter {
     	//로그인했을경우
     	// 2. 다음 filter가 작업을 할 수 있게 요청과 응답을 전달(그대로 사용)    	
     	if(session != null) {
-    		
     		chain.doFilter(request, response);
     	}else {
-    		
     		RequestDispatcher dispatcher = request.getRequestDispatcher("/loginForm.jsp");
     		dispatcher.forward(request,response);
     	}
-    	
-
 	}
+	
 	public void destroy() {
 
 		// filter가 제거되기 전에 수행되어야 할 마무리 작업 작성
-
 	}
 
 } // end

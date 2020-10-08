@@ -11,26 +11,32 @@ import java.util.List;
 import com.example.model.User;
 
 
-public class UserDao {
+public class UserDao2 {
 
-	private static UserDao userdao;
+	private static UserDao2 userdao;
 
-	Connection conn;
+	private static Connection conn;
 	private static PreparedStatement pstmt;
 	private static ResultSet rs;
+
 	
-	public void setConnection(Connection conn) {
-		// TODO Auto-generated method stub
-		this.conn = conn;
-	}
+	private static String DB_URL = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
+	private static String DB_USER = "student";
+	private static String DB_PASSWORD = "1234";
+
 	// 싱글턴 패턴
 	// 생성자를 private로
-	private UserDao() {
-		
+	private UserDao2() {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
-	public static UserDao getInstance() {
+
+	public static UserDao2 getInstance() {
 		if (userdao == null) {
-			userdao = new UserDao();
+			userdao = new UserDao2();
 		}
 		return userdao;
 	}
@@ -43,7 +49,8 @@ public class UserDao {
 		String query = "select * from user_info where user_id = ? and password = ?"; // 실행할 쿼리
 
 		try {
-			
+
+			conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD); // 데이터베이스의 연결을 설정한다.
 			pstmt = conn.prepareStatement(query); // Statement를 가져온다.
 
 			pstmt.setString(1, id);
@@ -70,7 +77,7 @@ public class UserDao {
 			try {
 				rs.close();
 				pstmt.close();
-
+				conn.close();
 			} catch (SQLException e) {
 			}
 
@@ -87,7 +94,7 @@ public class UserDao {
 
 		try {
 
-			
+			conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD); // 데이터베이스의 연결을 설정한다.
 			pstmt = conn.prepareStatement(query); // Statement를 가져온다.
 			rs = pstmt.executeQuery(); // SQL문을 실행한다.
 
@@ -118,7 +125,7 @@ public class UserDao {
 			try {
 				rs.close();
 				pstmt.close();
-
+				conn.close();
 			} catch (SQLException e) {
 			}
 
@@ -138,7 +145,7 @@ public class UserDao {
 
 		try {
 
-			
+			conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD); // 데이터베이스의 연결을 설정한다.
 			pstmt = conn.prepareStatement(query); // Statement를 가져온다.
 
 			pstmt.setString(1, user_id);
@@ -156,6 +163,7 @@ public class UserDao {
 			try {
 
 				pstmt.close();
+				conn.close();
 			} catch (SQLException e) {
 			}
 
@@ -171,7 +179,7 @@ public class UserDao {
 
 		try {
 
-			
+			conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD); // 데이터베이스의 연결을 설정한다.
 			pstmt = conn.prepareStatement(query); // Statement를 가져온다.
 
 			pstmt.setString(1, userId);
@@ -203,6 +211,7 @@ public class UserDao {
 			try {
 				rs.close();
 				pstmt.close();
+				conn.close();
 			} catch (SQLException e) {
 			}
 
@@ -224,6 +233,7 @@ public class UserDao {
 
 		try {
 
+			conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD); // 데이터베이스의 연결을 설정한다.
 			pstmt = conn.prepareStatement(query); // Statement를 가져온다.
 
 			pstmt.setString(1, changeID);
@@ -242,6 +252,7 @@ public class UserDao {
 			try {
 
 				pstmt.close();
+				conn.close();
 			} catch (SQLException e) {
 			}
 
@@ -260,6 +271,7 @@ public class UserDao {
 
 		try {
 
+			conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD); // 데이터베이스의 연결을 설정한다.
 			pstmt = conn.prepareStatement(query); // Statement를 가져온다.
 
 			pstmt.setString(1, u.getUser_id());
@@ -278,12 +290,12 @@ public class UserDao {
 			return SQLSTATUS;
 		} finally {
 			try {
+
 				pstmt.close();
+				conn.close();
 			} catch (SQLException e) {
 			}
 
 		}
 	}
-
-	
 }
