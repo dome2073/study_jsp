@@ -14,7 +14,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(filterName = "LogFilter", urlPatterns = {"/dice.jsp"})
+@WebFilter(urlPatterns = "/board/Post.jsp" )
 public class LogFilter implements Filter {
 	public void init(FilterConfig config) throws ServletException {
 
@@ -23,18 +23,22 @@ public class LogFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 
-			throws IOException, ServletException {
-
+		throws IOException, ServletException {
+		
+	
+	
 		HttpServletRequest httpRequest = (HttpServletRequest)request;
-
+		
     	HttpSession session = httpRequest.getSession(true);
     	
+    	String sessionId = (String)session.getAttribute("id");
+
     	//로그인했을경우
     	// 2. 다음 filter가 작업을 할 수 있게 요청과 응답을 전달(그대로 사용)    	
-    	if(session != null) {
+    	if(sessionId != null) {
     		chain.doFilter(request, response);
     	}else {
-    		RequestDispatcher dispatcher = request.getRequestDispatcher("/loginForm.jsp");
+    		RequestDispatcher dispatcher = request.getRequestDispatcher("/member/loginForm.jsp");
     		dispatcher.forward(request,response);
     	}
 	}

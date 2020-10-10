@@ -14,9 +14,11 @@ class test {
 	@Test
 	void user_insert() {
 		
-		//insert시 주의사항
-		//1. 데이터가 null값이 들어오면 안된다
+		//insert시(회원가입) 주의사항
+		//1. 데이터가 notnull필드에 null값이 들어오면 안된다
+		User u = new User(null, "1234", "정대윤", "wjdeodbs@aaa.com");
 		
+		udao.insertUser(u);
 		//2. pk가 중복되는(id)값이 들어오면 안된다.
 		
 		//3. 필드에 유효한 값이 들어와야한다.
@@ -25,9 +27,8 @@ class test {
 		
 		
 //		User u = new User("aaa001", "1234", "정대윤", "wjdeodbs@aaa.com");
-		User u = new User();
+//		User u = new User();
 	
-		udao.insertUser(u);
 	}
 	
 	@Test

@@ -169,7 +169,7 @@ public class UserDao {
 
 	// select - executeQuery
 	// 4. user_id를 매개변수로 받아 user_info테이블에서 해당 사용자의정보를 가져오는 selectUser()메서드
-	public static User selectUser(String userId) {
+	public  User selectUser(String userId) {
 		User user = new User();
 
 		String query = "select * from user_info where user_id = ?"; // 실행할 쿼리

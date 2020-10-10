@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/include/header.jsp" %>
 <!DOCTYPE html>
 
   <!-- Page Header -->
@@ -9,8 +10,8 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="post-heading">
-            <h1>Man must explore, and this is exploration at its greatest</h1>
-            <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
+            <h1>The Sample Post</h1>
+            <h2 class="subheading">회원만 열람 가능한 페이지 입니다.</h2>
             <span class="meta">Posted by
               <a href="#">Start Bootstrap</a>
               on August 24, 2019</span>
@@ -67,5 +68,5 @@
   </article>
 
   <hr>
-
+<%@ include file="/include/footer.jsp" %>
  
