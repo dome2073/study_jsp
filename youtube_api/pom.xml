@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>youtube_api</groupId>
+  <artifactId>youtube_api</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+    <dependencies>
+   <dependency>
+     <groupId>com.google.api-client</groupId>
+     <artifactId>google-api-client</artifactId>
+     <version>1.30.10</version>
+   </dependency>
+   
+   <!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-youtubereporting -->
+<!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-youtubereporting -->
+<dependency>
+    <groupId>com.google.apis</groupId>
+    <artifactId>google-api-services-youtubereporting</artifactId>
+    <version>v1-rev748-1.25.0</version>
+</dependency>
+
+  <dependency>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-youtubeAnalytics</artifactId>
+      <version>v2-rev20200801-1.30.10</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.3</version>
+        <configuration>
+          <warSourceDirectory>WebContent</warSourceDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

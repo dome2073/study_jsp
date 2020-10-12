@@ -221,19 +221,19 @@ public class UserDao {
 
 	// update , insert - executeUpdate()
 	// 3. User객체를 매개변수로 받아 user_info테이블에서 해당 사용자의 정보를 update하는 updateUser()메서드를 작성
-	public int updateUser(User u, String changeID) {
+	public int updateUser(User u) {
 		// TODO Auto-generated method stub
 
 		int SQLSTATUS = 0;
 
-		String query = "update user_info set user_id = ? where user_id = ?"; // 실행할 쿼리
+		String query = "update user_info set name = ? where user_id = ?"; // 실행할 쿼리
 
 		try {
 
 			conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD); // 데이터베이스의 연결을 설정한다.
 			pstmt = conn.prepareStatement(query); // Statement를 가져온다.
 
-			pstmt.setString(1, changeID);
+			pstmt.setString(1, u.getUser_name());
 			pstmt.setString(2, u.getUser_id());
 
 			pstmt.executeUpdate(); // SQL문을 실행한다.

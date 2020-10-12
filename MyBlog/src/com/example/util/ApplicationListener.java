@@ -17,8 +17,9 @@ public class ApplicationListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		// TODO Auto-generated method stub
+		System.out.println("실행");
 		ServletContext sc = sce.getServletContext();
-	
+		
 		try {
 			Class.forName(("oracle.jdbc.driver.OracleDriver"));
 			conn = DriverManager.getConnection(

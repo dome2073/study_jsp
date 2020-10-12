@@ -1,20 +1,32 @@
-package test;
+package com.example.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.jupiter.api.Test;
+import javax.servlet.ServletContextEvent;
 
-import Dao.UserDao;
-import Model.User;
+import org.junit.Test;
 
-class test {
+import com.example.dao.UserDao;
+import com.example.model.User;
+import com.example.util.ApplicationListener;
+
+public class DaoTest {
+
 	UserDao udao = UserDao.getInstance();
+	ServletContextEvent sce;
+	@Test
+	void ii() {
+		System.out.println("zz");
+	}
 	
 	@Test
 	void user_insert() {
+		System.out.println("zz");
+		ApplicationListener ac = new ApplicationListener();
 		
+		ac.contextInitialized(sce);
+		UserDao udao = UserDao.getInstance();
 		//insert시(회원가입) 주의사항
 		//1. 데이터가 notnull필드에 null값이 들어오면 안된다
 		User u = new User(null, "1234", "정대윤", "wjdeodbs@aaa.com");
@@ -29,7 +41,7 @@ class test {
 		
 		assertEquals(udao.insertUser(u), 1);
 		
-		String selectID = udao.selectUser(u.getUser_id()).getUser_id();
+		String selectID = udao.selectUserInfo(u.getUser_id()).getUser_id();
 		
 		assertTrue(selectID.equals("user01"));
 		
@@ -51,8 +63,8 @@ class test {
 		in_Result = udao.insertUser(u); 
 		assertTrue(in_Result == -1);
 		
-		
-//		User u = new User("aaa001", "1234", "정대윤", "wjdeodbs@aaa.com");
+		ac.contextInitialized(sce);
+		//		User u = new User("aaa001", "1234", "정대윤", "wjdeodbs@aaa.com");
 //		User u = new User();
 	
 	}
@@ -79,7 +91,7 @@ class test {
 		//이름만 변경하는것으로..
 		System.out.println("변경 후 "+ udao.selectUser(u2.getUser_id()));
 		
-		assertTrue(udao.selectUser(u2.getUser_id()).getUser_name().equals(u2.getUser_name()));
+		assertTrue(udao.selectUserInfo(u2.getUser_id()).getUser_name().equals(u2.getUser_name()));
 		
 		udao.deleteUser(u2.getUser_id());
 	}
@@ -115,4 +127,5 @@ class test {
 		udao.deleteUser("test116");
 		System.out.println(udao.selectAllUsers());
 	}
+
 }

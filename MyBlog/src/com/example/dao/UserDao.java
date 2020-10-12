@@ -161,7 +161,54 @@ public class UserDao {
 
 		}
 	}
+	public  User selectUserInfo(String userId) {
+		User user = new User();
 
+		String query = "select * from user_info where user_id = ?"; // 실행할 쿼리
+
+		try {
+
+			pstmt = conn.prepareStatement(query); // Statement를 가져온다.
+
+			pstmt.setString(1, userId);
+
+			rs = pstmt.executeQuery(); // SQL문을 실행한다.
+
+			while (rs.next()) {
+//				System.out.println("1");
+//				System.out.println(rs.getString("user_id") + " "); 
+//				System.out.println(rs.getString("password") + " ");
+//				System.out.println(rs.getString("name") + " "); 
+//				System.out.println(rs.getString("email") + " "); 
+//				System.out.println(rs.getString("in_date") + " ");
+//				System.out.println(rs.getString("up_date") + " ");
+
+				user.setUser_id(rs.getString("user_id"));
+				user.setUser_pw(rs.getString("password"));
+				user.setUser_name(rs.getString("name"));
+				user.setUser_email(rs.getString("email"));
+				user.setIn_date(rs.getString("in_date"));
+				user.setUp_date(rs.getString("up_date"));
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				
+			} catch (SQLException e) {
+			}
+
+		}
+
+		// 예외처리 X
+
+		return user;
+	}
 	// select - executeQuery
 	// 4. user_id를 매개변수로 받아 user_info테이블에서 해당 사용자의정보를 가져오는 selectUser()메서드
 	public int selectUser(String userId) {
@@ -215,19 +262,20 @@ public class UserDao {
 
 	// update , insert - executeUpdate()
 	// 3. User객체를 매개변수로 받아 user_info테이블에서 해당 사용자의 정보를 update하는 updateUser()메서드를 작성
-	public int updateUser(User u, String changeID) {
+	public int updateUser(User u) {
 		// TODO Auto-generated method stub
 
 		int SQLSTATUS = 0;
 
-		String query = "update user_info set user_id = ? where user_id = ?"; // 실행할 쿼리
+		String query = "update user_info set name = ? where user_id = ?"; // 실행할 쿼리
 
 		try {
 
 			pstmt = conn.prepareStatement(query); // Statement를 가져온다.
 
-			pstmt.setString(1, changeID);
+			pstmt.setString(1, u.getUser_name());
 			pstmt.setString(2, u.getUser_id());
+
 
 			pstmt.executeUpdate(); // SQL문을 실행한다.
 

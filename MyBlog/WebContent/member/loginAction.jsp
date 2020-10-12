@@ -73,8 +73,7 @@ void addCookie(HttpServletRequest request, HttpServletResponse response) {
 	//이전 페이지의 정보
 	String backUrl = request.getParameter("url");
 
-	if(backUrl.equals("null"))
-		backUrl = "/index";
+	if(backUrl.equals("null")) backUrl = "/index";
 
 	if (logincheck == 1) {
 		response.sendRedirect(backUrl + ".jsp");
