@@ -3,7 +3,7 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	id="WebApp_ID" version="4.0">
-	<display-name>WebStudy</display-name>
+	<display-name>MyBlog</display-name>
 	<welcome-file-list>
 
 		<welcome-file>index.jsp</welcome-file>
@@ -11,5 +11,25 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-
+	
+	<listener>
+		<listener-class>com.example.util.ApplicationListener</listener-class>
+	</listener>
+	
+	<context-param>
+		<param-name>DRIVER</param-name>
+		<param-value>oracle.jdbc.driver.OracleDriver</param-value>
+	</context-param>
+	<context-param>
+		<param-name>URL</param-name>
+		<param-value>jdbc:oracle:thin:@127.0.0.1:1521:XE</param-value>
+	</context-param>
+	<context-param>
+		<param-name>USER</param-name>
+		<param-value>student</param-value>
+	</context-param>
+	<context-param>
+		<param-name>PASSWORD</param-name>
+		<param-value>1234</param-value>
+	</context-param>
 </web-app>

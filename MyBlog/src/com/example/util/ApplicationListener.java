@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebListener;
 
 import com.example.dao.UserDao;
 
-@WebListener
+
 public class ApplicationListener implements ServletContextListener {
 	Connection conn;
 	@Override
@@ -21,19 +21,19 @@ public class ApplicationListener implements ServletContextListener {
 		ServletContext sc = sce.getServletContext();
 		
 		try {
-			Class.forName(("oracle.jdbc.driver.OracleDriver"));
+			
+			Class.forName(sc.getInitParameter("DRIVER"));
 			conn = DriverManager.getConnection(
-					"jdbc:oracle:thin:@127.0.0.1:1521:XE",
-					"student",
-					"1234"
+					sc.getInitParameter("URL"),
+					sc.getInitParameter("USER"),
+					sc.getInitParameter("PASSWORD")
 			);
 			System.out.println(conn);
 			
 			UserDao udao = UserDao.getInstance();
 			udao.setConnection(conn);
 			
-			
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
